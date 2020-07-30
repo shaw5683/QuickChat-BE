@@ -33,6 +33,21 @@ module.exports = {
     key: 'QuickChatSess',
     httpOnly: true,
     encrypt: true
+  },
+  io: {
+    init: {},
+    namespace: {
+      '/chat': {
+        connectionMiddleware: ['connection'],
+        packetMiddleware: ['auth', 'connection']
+      }
+    },
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+      auth_pass: '123456',
+      db: 0
+    }
   }
 }
 

@@ -70,6 +70,19 @@ class UserController extends Controller {
     }
     ctx.helper.fail(ctx, userCode.UPDATE_ERR)
   }
+  async getUserInfo () {
+    const { ctx, service } = this
+    const body = ctx.request.body
+    const { userName, nickName, avatar, userId } = await service.user.getUserInfo(body.userName ? 'userName' : 'userId', body.userName || ctx.session.userInfo.userId)
+    ctx.helper.success(ctx, {
+      data: {
+        userName,
+        nickName,
+        avatar,
+        userId
+      }
+    })
+  }
 }
 
 module.exports = UserController;

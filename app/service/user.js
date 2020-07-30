@@ -8,10 +8,12 @@ class UserService extends Service {
     const { md5 } = require('../../utils/index')
     if (!existUser) {
       const result = await this.app.mysql.insert('user', {
-        ...userInfo,
+        userName: userInfo.userName,
+        nickName: userInfo.nickName,
         createTime: new Date(),
         updateTime: new Date(),
-        password: md5(userInfo.password)
+        password: md5(userInfo.password),
+        dialog: JSON.stringify([])
       })
       return {
         id: result.insertId
@@ -27,7 +29,10 @@ class UserService extends Service {
     if (!result) {
       return false
     }
-    return result
+    return {
+      ...result,
+      dialog: JSON.parse(result.dialog)
+    }
   }
   async updateUserInfo (userInfo) {
     const result = await this.app.mysql.update('user', userInfo, {

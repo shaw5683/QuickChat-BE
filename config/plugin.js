@@ -13,5 +13,9 @@ module.exports = {
     enable: true,
     package: 'egg-redis'
   },
-  session: true
+  session: true,
+  io: {
+    enable: true,
+    package: 'egg-socket.io'
+  }
 };
