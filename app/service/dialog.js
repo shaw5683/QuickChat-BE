@@ -23,7 +23,7 @@ class DialogService extends Service {
       createTime: new Date(),
       updateTime: new Date()
     })
-    await this.app.mysql.query(`update user set dialog = JSON_ARRAY_APPEND(dialog, '$', ?) where userId in (?)`, [String(dialogRes.insertId), member.join(',')])
+    await this.app.mysql.query(`update user set dialog = JSON_ARRAY_APPEND(dialog, '$', ?) where userId in (${member.map(m => '?').join(',')})`, [String(dialogRes.insertId), ...member])
     await this.app.mysql.insert('message', {
       ...msg,
       dialogId: dialogRes.insertId

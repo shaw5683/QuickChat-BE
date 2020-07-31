@@ -47,7 +47,7 @@ module.exports = appInfo => {
         // 用户名
         user: 'root',
         // 密码
-        password: '123456',
+        password: 'QuickChat.123456',
         // 数据库名
         database: 'quick_chat',
       },

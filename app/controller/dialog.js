@@ -8,7 +8,7 @@ class DialogController extends Controller {
     const { dialogName, avatar = '' } = ctx.request.body
     const { userId } = ctx.session.userInfo
     let member = ctx.request.body.member || []
-    !member.length && member.push(userId)
+    !member.includes(userId) && member.push(userId)
     const { id } = await service.dialog.addDialog(ctx.helper.escapeDeep({
       dialogName,
       member,
